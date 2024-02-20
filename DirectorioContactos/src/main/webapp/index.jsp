@@ -51,7 +51,7 @@
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar contacto..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                                   aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
@@ -66,14 +66,14 @@
                         <!-- Nav Item - Alertas -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
                                 <span class="badge badge-danger badge-counter">0</span>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
+                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Notificaciones
                                 </h6>
@@ -95,21 +95,21 @@
                         <!-- Nav Item - Mensajes -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
                                 <!-- Counter - Messages -->
                                 <span class="badge badge-danger badge-counter">0</span>
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
+                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
                                     Mensajes
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
                                         <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
+                                             alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -126,14 +126,14 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario sin nombre</span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                     src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
+                                 aria-labelledby="userDropdown">
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModa">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -154,6 +154,16 @@
                     <h1 class="h3 mb-2 text-gray-800">DIRECTORIO DE CONTACTOS</h1>
                     <p class="mb-4">Encuentra todos tus contactos registrados en este directorio de contactos, agrega, visualiza, edita y elimina los contactos que desees.</p>
 
+                    <!-- boton de agregar contacto -->
+
+                    <button style="margin: 5px" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Agregar Contacto
+                    </button>
+                    
+                    <!<!-- modal para agregar contacto -->
+                    <%@include file= "templates/Modal_Agregar.jsp" %>
+
+                    <!-------fin de boton agregar contacto---------->
                     <!-- DataTales -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -202,7 +212,7 @@
                                             <td>2009/01/12</td>
                                             <td>Ver Editar Borrar</td>
                                         </tr>
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -252,6 +262,6 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    
-<!-- Inclución de la plantilla de footer -->
-<%@include file= "templates/footer.jsp" %>
+
+    <!-- Inclución de la plantilla de footer -->
+    <%@include file= "templates/footer.jsp" %>
