@@ -159,8 +159,8 @@
                     <button style="margin: 5px" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Agregar Contacto
                     </button>
-                    
-                    <!<!-- modal para agregar contacto -->
+
+                    <!-- modal para agregar contacto -->
                     <%@include file= "templates/Modal_Agregar.jsp" %>
 
                     <!-------fin de boton agregar contacto---------->
@@ -224,6 +224,22 @@
 
             </div>
             <!-- Fin de Main Content -->
+
+            <% if (request.getSession().getAttribute("ContactoAgregado") != null && (boolean) request.getSession().getAttribute("ContactoAgregado") == true) { %>
+            <div class="toast fade show p-3" role="alert" aria-live="assertive"id="Agregado" style="text-align: center; size: 28px">
+                <div class="toast-body">
+                    <label>Se agrego un nuevo contacto</label>
+                </div>
+            </div>
+
+            <script>
+                // Ocultar la alerta después de 5 segundos (5000 milisegundos)
+                setTimeout(function () {
+                    $('#Agregado').alert('close');
+                }, 4000);
+            </script>
+            <% request.getSession().removeAttribute("alertaAgregar"); %>
+            <% }%>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
