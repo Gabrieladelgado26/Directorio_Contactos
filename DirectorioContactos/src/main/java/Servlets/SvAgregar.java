@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import Logica.Directorio;
 import Clases.Contacto;
 import Clases.ContactoRepetidoException;
+import Clases.Persistencia;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -26,6 +21,7 @@ import java.util.logging.Logger;
 public class SvAgregar extends HttpServlet {
 
     Directorio directorio = new Directorio();
+    Persistencia persistencia = new Persistencia();
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -39,6 +35,20 @@ public class SvAgregar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Obtener el contexto del servlet
+        ServletContext context = getServletContext();
+
+//        Collection lista = persistencia.leerArchivo(context);
+
+//        try {
+//            persistencia = Persistencia.leerArchivo(context);
+//            if (persistencia == null) {
+//                persistencia = new Contacto();
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(SvAgregar.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
         String nombres = request.getParameter("nombres");
         String apellidos = request.getParameter("apellidos");
         String direccion = request.getParameter("direccion");
@@ -49,14 +59,14 @@ public class SvAgregar extends HttpServlet {
         try {
             directorio.agregarContacto(nombres, apellidos, direccion, telefono, correo);
             Collection<Contacto> listaContactos = directorio.darListaContactos();
-            request.getSession().setAttribute("listaContactos",listaContactos);
-            
+            persistencia.escribirArchivo(listaContactos, context);
+
+            request.getSession().setAttribute("listaContactos", listaContactos);
+
             response.sendRedirect("index.jsp");
 
         } catch (ContactoRepetidoException ex) {
             System.out.println("El contacto esta repetido");;
         }
-
     }
-
 }
