@@ -212,7 +212,11 @@
                                                                 <td><%= contacto.getDireccion()%></td>
                                                                 <td><%= contacto.getTelefono()%></td>
                                                                 <td><%= contacto.getEmail()%></td>
-                                                                <td>Ver Editar Borrar</td>
+                                                                <td>
+                                                                    <a href="#"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDetalles"><i class="fa fa-eye"></i></a>
+                                                                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModalConfirm"><i class="fa fa-marker"></i></a>         
+                                                                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalConfirm"><i class="fa fa-trash-alt"></i></a>
+                                                                </td>
                                                             </tr>
 
                                                             <%
