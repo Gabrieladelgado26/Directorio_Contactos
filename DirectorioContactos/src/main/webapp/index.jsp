@@ -1,3 +1,4 @@
+<%@page import="Logica.Directorio"%>
 <!-- Inclución de la plantilla de footer -->
 <%@include file= "templates/header.jsp" %>
 
@@ -183,6 +184,7 @@
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
+                                  
                                     <tbody>
                                         <!-- Aqui van los contactos que se debe agregar -->
                                         <tr>

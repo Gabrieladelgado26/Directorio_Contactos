@@ -13,10 +13,7 @@
 
                 <form method="post" action="SvAgregar">
                     <div class="modal-body">
-                        <div class="col-md-12">
-                            <label for="id" class="form-label">id</label>
-                            <input type="text" class="form-control" name="id" required>
-                        </div>
+
                         <div class="col-md-12">
                             <label for="nombres" class="form-label">Nombres</label>
                             <input type="text" class="form-control" name="nombres" required>

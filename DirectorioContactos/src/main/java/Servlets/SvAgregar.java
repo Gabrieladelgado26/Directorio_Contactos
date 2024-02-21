@@ -11,8 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Logica.DirectorioDeContactos;
+import Logica.Directorio;
 import Clases.Contacto;
+import Clases.ContactoRepetidoException;
+import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,8 +25,7 @@ import Clases.Contacto;
 @WebServlet(name = "SvAgregar", urlPatterns = {"/SvAgregar"})
 public class SvAgregar extends HttpServlet {
 
-    DirectorioDeContactos directorio = new DirectorioDeContactos();
-
+    Directorio directorio = new Directorio();
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -35,26 +38,24 @@ public class SvAgregar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         int id = Integer.parseInt(request.getParameter("id"));
         String nombres = request.getParameter("nombres");
         String apellidos = request.getParameter("apellidos");
         String direccion = request.getParameter("direccion");
         String telefono = request.getParameter("telefono");
         String correo = request.getParameter("correo");
-        
-        boolean contactoAgregado = directorio.agregarContacto(new Contacto(id, nombres, apellidos, direccion, telefono, correo));
-        if(contactoAgregado==true){
-            System.out.println("se ha agregado un nuevo contacto");
-            response.sendRedirect("index.jsp");
-            request.getSession().setAttribute("ContactoAgregado", true);
-        }else{
-            System.out.println("no se puedo agregar el contacto");
-            response.sendRedirect("index.jsp");
+
+        //System.out.println(nombres +", "+apellidos+", "+direccion+", "+telefono+", "+correo);
+        try {
+            directorio.agregarContacto(nombres, apellidos, direccion, telefono, correo);
+            Collection<Contacto> listaContactos = directorio.darListaContactos();
+            
+
+        } catch (ContactoRepetidoException ex) {
+            System.out.println("El contacto esta repetido");;
         }
-        
-        
-        
+
     }
 
 }
