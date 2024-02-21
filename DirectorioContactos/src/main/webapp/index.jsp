@@ -1,3 +1,5 @@
+<%@page import="java.util.Collection"%>
+<%@page import="Clases.Contacto"%>
 <%@page import="Logica.Directorio"%>
 <!-- Inclución de la plantilla de footer -->
 <%@include file= "templates/header.jsp" %>
@@ -184,7 +186,15 @@
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
+                                  <% 
+                                      
+                                  Collection<Contacto> listaContactos = (Collection<Contacto>) request.getAttribute("listaContactos");
                                   
+                                  for(Contacto contacto : listaContactos){
+                                  
+                                      }
+                                  
+                                  %>
                                     <tbody>
                                         <!-- Aqui van los contactos que se debe agregar -->
                                         <tr>

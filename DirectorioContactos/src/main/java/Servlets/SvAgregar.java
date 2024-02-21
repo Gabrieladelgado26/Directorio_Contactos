@@ -39,7 +39,6 @@ public class SvAgregar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("id"));
         String nombres = request.getParameter("nombres");
         String apellidos = request.getParameter("apellidos");
         String direccion = request.getParameter("direccion");
@@ -50,7 +49,9 @@ public class SvAgregar extends HttpServlet {
         try {
             directorio.agregarContacto(nombres, apellidos, direccion, telefono, correo);
             Collection<Contacto> listaContactos = directorio.darListaContactos();
+            request.setAttribute("listaContactos",listaContactos);
             
+            response.sendRedirect("index.jsp");
 
         } catch (ContactoRepetidoException ex) {
             System.out.println("El contacto esta repetido");;

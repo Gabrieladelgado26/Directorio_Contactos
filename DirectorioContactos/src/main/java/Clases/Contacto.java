@@ -332,7 +332,7 @@ public class Contacto implements Comparable {
             izq.inorden(acumulado);
         }
         // Incluye en el recorrido el contacto de la ra�z
-        acumulado.add(nombre);
+        acumulado.add(this);
         // Recorre en inorden el sub�rbol derecho
         if (der != null) {
             der.inorden(acumulado);
