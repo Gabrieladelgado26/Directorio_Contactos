@@ -22,7 +22,7 @@ public class Directorio {
 
     public Directorio() {
         this.contactoRaiz = null;
-        numContactos = 0;
+        numContactos = 1;
     }
 
     /**
@@ -39,9 +39,12 @@ public class Directorio {
     public void agregarContacto(String nombre, String apellido, String direccion, String telefono, String email) throws ContactoRepetidoException {
         Contacto c = new Contacto(nombre, apellido, direccion, telefono, email);
         if (contactoRaiz == null) {
+            c.setId(numContactos);
             contactoRaiz = c;
         } else {
+            c.setId(numContactos);
             contactoRaiz.insertar(c);
+            
         }
         numContactos++;
         verificarInvariante();

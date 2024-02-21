@@ -49,7 +49,7 @@ public class SvAgregar extends HttpServlet {
         try {
             directorio.agregarContacto(nombres, apellidos, direccion, telefono, correo);
             Collection<Contacto> listaContactos = directorio.darListaContactos();
-            request.setAttribute("listaContactos",listaContactos);
+            request.getSession().setAttribute("listaContactos",listaContactos);
             
             response.sendRedirect("index.jsp");
 
