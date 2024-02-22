@@ -1,3 +1,4 @@
+<%@page import="Clases.Persistencia"%>
 <%@page import="java.util.Collection"%>
 <%@page import="Clases.Contacto"%>
 <%@page import="Logica.Directorio"%>
@@ -213,11 +214,120 @@
                                                                 <td><%= contacto.getTelefono()%></td>
                                                                 <td><%= contacto.getEmail()%></td>
                                                                 <td>
-                                                                    <a href="#"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDetalles"><i class="fa fa-eye"></i></a>
-                                                                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModalConfirm"><i class="fa fa-marker"></i></a>         
-                                                                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalConfirm"><i class="fa fa-trash-alt"></i></a>
+                                                                    <a href="#"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDetalles<%= contacto.getId()%>"><i class="fa fa-eye"></i></a>
+                                                                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModalConfirm<%= contacto.getId()%>"><i class="fa fa-marker"></i></a>         
+                                                                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalConfirm<%= contacto.getId()%>"><i class="fa fa-trash-alt"></i></a>
+
+
                                                                 </td>
                                                             </tr>
+
+
+                                                            <!------------  Modal para ver informacion de conctacto ------------>
+
+                                                            <div class="modal fade" id="exampleModalDetalles<%= contacto.getId()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion de conctacto</h1>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            
+                                                                            <%= contacto.getId()%>
+                                                                            <%= contacto.getNombre()%>
+                                                                            <%= contacto.getApellido()%>
+                                                                            <%= contacto.getDireccion()%>
+                                                                            <%= contacto.getTelefono()%>
+                                                                            <%= contacto.getEmail()%>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- fin de modal -->
+
+
+                                                            <!------------- Modal para editar informacion del conctacto  ------------->
+                                                            <div class="modal fade" id="editModalConfirm<%= contacto.getId()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Informacion de Contacto</h1>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+
+                                                                        <form method="post" action="SvAgregar">
+                                                                            <div class="modal-body">
+
+                                                                                <div class="col-md-12">
+                                                                                    <label for="nombres" class="form-label">Nombres</label>
+                                                                                    <input type="text" class="form-control" name="nombres" value="<%=contacto.getNombre()%>"  required>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <label for="apellidos" class="form-label">Apellidos</label>
+                                                                                    <input type="text" class="form-control" name="apellidos" value="<%=contacto.getApellido()%>" required>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <label for="direccion" class="form-label">Dirección</label>
+                                                                                    <input type="text" class="form-control" name="direccion" value="<%=contacto.getDireccion()%>" required>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <label for="telefono" class="form-label">Teléfono</label>
+                                                                                    <input type="text" class="form-control" name="telefono" value="<%=contacto.getTelefono()%>" required>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <label for="correo" class="form-label">Correo</label>
+                                                                                    <input type="email" class="form-control" name="correo" value="<%=contacto.getEmail()%>" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                                                            </div>
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!----------------- Fin de modal para editar informacion --------------->
+
+
+                                                            <!------------------- Modal para elimianr contacto --------------------->
+
+                                                            <div class="modal fade" id="deleteModalConfirm<%= contacto.getId()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Contacto</h1>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+
+                                                                        <form method="post" action="SvEliminar">
+                                                                            <div class="modal-body">
+
+                                                                                <div class="col-md-12">
+                                                                                    <label for="nombres" class="form-label">¿Estas seguro de eliminar a <%=contacto.getNombre()%> <%=contacto.getApellido()%> ?</label>
+                                                                                    
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                                                <button type="submit" class="btn btn-primary">Si</button>
+                                                                            </div>
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!------------------- Fin del modal para eliminar contacto ----------------->
 
                                                             <%
                                                                     }
