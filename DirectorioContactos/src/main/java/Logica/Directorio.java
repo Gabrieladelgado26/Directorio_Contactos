@@ -44,7 +44,7 @@ public class Directorio {
         } else {
             c.setId(numContactos);
             contactoRaiz.insertar(c);
-            
+
         }
         numContactos++;
         verificarInvariante();
@@ -171,8 +171,5 @@ public class Directorio {
         }
     }
     
-    
-    
-
 
 }

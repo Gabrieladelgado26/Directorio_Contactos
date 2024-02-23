@@ -1,5 +1,6 @@
 package Clases;
 
+import Logica.Directorio;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +16,7 @@ import javax.servlet.ServletContext;
  * @author Gabriela Delgado
  */
 public class Persistencia {
-
+    
     public Persistencia() {
     }
 
@@ -25,24 +26,32 @@ public class Persistencia {
      * @param context
      * @throws FileNotFoundException 
      */
-    public void escribirArchivo(Collection<Contacto> lista, ServletContext context) throws FileNotFoundException {
-
+public void escribirArchivo(Collection<Contacto> lista, ServletContext context) {
         // Ubicación del archivo de datos
         String rutaRelativa = "/data/contactosRegistrados.txt";
         String rutaAbsoluta = context.getRealPath(rutaRelativa);
         File archivo = new File(rutaAbsoluta);
 
         try (PrintWriter pluma = new PrintWriter(archivo)) {
-            // Iterar a través de la lista de usuario y escribir sus datos en el archivo
-            for (Contacto contacto : lista) { // Aquí se corrige el nombre de la colección
-                // Formatear los datos del alumno en una línea y escribir en el archivo
-                String linea = contacto.getId() + "," + contacto.getNombre() + "," + contacto.getApellido() + ","
-                        + contacto.getDireccion() + contacto.getTelefono() + contacto.getEmail();
+            // Iterar a través de la lista de contactos y escribir sus datos en el archivo
+            for (Contacto contacto : lista) {
+                // Formatear los datos del contacto en una línea y escribir en el archivo
+                String linea = String.format("%s,%s,%s,%s,%s,%s",
+                        contacto.getId(),
+                        contacto.getNombre(),
+                        contacto.getApellido(),
+                        contacto.getDireccion(),
+                        contacto.getTelefono(),
+                        contacto.getEmail());
                 pluma.println(linea);
             }
-
+            System.out.println("contactos escrita exitosamente");
         } catch (FileNotFoundException e) {
-            System.out.println("No se pudo encontrar el archivo de datos.");
+            System.err.println("Error: No se pudo encontrar el archivo de datos.");
+            e.printStackTrace();  // Imprimir el seguimiento de la pila para facilitar la depuración
+        } catch (Exception e) {
+            System.err.println("Error al escribir en el archivo.");
+            e.printStackTrace();
         }
     }
 
@@ -80,7 +89,7 @@ public class Persistencia {
                 Contacto contacto = new Contacto(nombre, apellido, direccion, telefono, email);
                 contacto.setId(Integer.parseInt(id));
                 lista.add(contacto); // Aquí se corrige el nombre de la colección
-                return lista;
+                
             }
 
         } catch (FileNotFoundException e) {
@@ -88,7 +97,7 @@ public class Persistencia {
         } catch (IOException e) {
             System.out.println("Error durante la lectura del archivo.");
         }
-        return null;
+        return lista;
     }
 
 }

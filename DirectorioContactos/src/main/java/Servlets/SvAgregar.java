@@ -10,20 +10,26 @@ import Logica.Directorio;
 import Clases.Contacto;
 import Clases.ContactoRepetidoException;
 import Clases.Persistencia;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 /**
  *
  * @author ADRIAN CASTILLO
  */
-@WebServlet(name = "SvAgregar", urlPatterns = {"/SvAgregar"})
+@WebServlet(name = "SvAgregar", urlPatterns = {"/SvAgregar"}, loadOnStartup = 1)
 public class SvAgregar extends HttpServlet {
 
     Directorio directorio = new Directorio();
     Persistencia persistencia = new Persistencia();
 
-    
+            
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -34,21 +40,9 @@ public class SvAgregar extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+            throws ServletException, IOException, FileNotFoundException {
         // Obtener el contexto del servlet
         ServletContext context = getServletContext();
-
-//        Collection lista = persistencia.leerArchivo(context);
-
-//        try {
-//            persistencia = Persistencia.leerArchivo(context);
-//            if (persistencia == null) {
-//                persistencia = new Contacto();
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(SvAgregar.class.getName()).log(Level.SEVERE, null, ex);
-//        }
 
         String nombres = request.getParameter("nombres");
         String apellidos = request.getParameter("apellidos");
@@ -59,15 +53,15 @@ public class SvAgregar extends HttpServlet {
         //System.out.println(nombres +", "+apellidos+", "+direccion+", "+telefono+", "+correo);
         try {
             directorio.agregarContacto(nombres, apellidos, direccion, telefono, correo);
-            Collection<Contacto> listaContactos = directorio.darListaContactos();
-            persistencia.escribirArchivo(listaContactos, context);
+            
+            persistencia.escribirArchivo(directorio.darListaContactos(), context);
 
-            request.getSession().setAttribute("listaContactos", listaContactos);
+            request.getSession().setAttribute("listaContactos", directorio.darListaContactos());
 
             response.sendRedirect("index.jsp");
 
         } catch (ContactoRepetidoException ex) {
-            System.out.println("El contacto esta repetido");;
+            System.out.println("El contacto esta repetido");
         }
     }
 }
