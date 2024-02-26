@@ -151,8 +151,8 @@ public class Directorio {
      */
     private void verificarInvariante() {
         assert sinRepetidos() : "Contactos repetidos";
-        assert esOrdenado() : "No es un �rbol ordenado";
-        assert numContactos == darPeso() : "N�mero incorrecto de contactos";
+        assert esOrdenado() : "No es un arbol ordenado";
+        assert numContactos == darPeso() : "Numero incorrecto de contactos";
     }
 
     /**
