@@ -32,11 +32,8 @@ public class SvAgregar extends HttpServlet {
         String correo = request.getParameter("correo");
 
         try {
-            String rutaRelativa = "/data/contactosRegistrados.txt";
-            String rutaAbsoluta = context.getRealPath(rutaRelativa);
-            File archivo = new File(rutaAbsoluta);
 
-            leerArchivoYAgregarContactos(archivo);
+            persistencia.leerArchivoYAgregarContactos(context, directorio);
 
             directorio.agregarContacto(nombres, apellidos, direccion, telefono, correo);
 
@@ -48,26 +45,10 @@ public class SvAgregar extends HttpServlet {
 
         } catch (ContactoRepetidoException ex) {
             System.out.println("El contacto está repetido");
-             response.sendRedirect("index.jsp");
+            response.sendRedirect("index.jsp");
             ex.printStackTrace();
         }
     }
 
-    private void leerArchivoYAgregarContactos(File archivo) throws IOException {
-        try (FileReader fr = new FileReader(archivo); BufferedReader lector = new BufferedReader(fr)) {
-            String linea;
-            while ((linea = lector.readLine()) != null) {
-                String[] datos = linea.split(",");
-                String nombre1 = datos[1].trim();
-                String apellido1 = datos[2].trim();
-                String direccion1 = datos[3].trim();
-                String telefono1 = datos[4].trim();
-                String email1 = datos[5].trim();
-                
-                directorio.agregarContacto(nombre1, apellido1, direccion1, telefono1, email1);
-            }
-        } catch (ContactoRepetidoException ex) {
-            Logger.getLogger(SvAgregar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+
 }

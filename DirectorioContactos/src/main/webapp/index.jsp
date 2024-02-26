@@ -194,9 +194,13 @@
                                                             <%
                                                                 ServletContext context = getServletContext();
                                                                 Persistencia persistencia = new Persistencia();
+                                                                Directorio directorio = new Directorio();
+                                                                        
+                                                                        
+                                                                persistencia.leerArchivoYAgregarContactos(context, directorio);
                                                                 
                                                                 
-                                                                Collection<Contacto> listaContactos = (Collection<Contacto>) persistencia.leerArchivo(context);
+                                                                Collection<Contacto> listaContactos = (Collection<Contacto>) directorio.darListaContactos();
                                                                 if (listaContactos == null) {
                                                                 
                                                             %>

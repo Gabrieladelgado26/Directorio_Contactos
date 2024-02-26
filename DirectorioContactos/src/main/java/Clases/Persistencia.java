@@ -1,6 +1,7 @@
 package Clases;
 
 import Logica.Directorio;
+import Servlets.SvAgregar;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 
 /**
@@ -62,42 +65,26 @@ public void escribirArchivo(Collection<Contacto> lista, ServletContext context) 
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public Collection<Contacto> leerArchivo(ServletContext context) throws FileNotFoundException, IOException {
-
-        Collection lista = new ArrayList();
-        // Ubicación del archivo de datos
+    public void leerArchivoYAgregarContactos(ServletContext context, Directorio directorio) throws IOException {
         String rutaRelativa = "/data/contactosRegistrados.txt";
         String rutaAbsoluta = context.getRealPath(rutaRelativa);
         File archivo = new File(rutaAbsoluta);
 
         try (FileReader fr = new FileReader(archivo); BufferedReader lector = new BufferedReader(fr)) {
-
             String linea;
-            // Leer cada línea del archivo y procesar los datos
-
             while ((linea = lector.readLine()) != null) {
                 String[] datos = linea.split(",");
+                String nombre1 = datos[1].trim();
+                String apellido1 = datos[2].trim();
+                String direccion1 = datos[3].trim();
+                String telefono1 = datos[4].trim();
+                String email1 = datos[5].trim();
 
-                String id = datos[0].trim();
-                String nombre = datos[1].trim();
-                String apellido = datos[2].trim();
-                String direccion = datos[3].trim();
-                String telefono = datos[4].trim();
-                String email = datos[5].trim();
-
-                // Crear un objeto Contacto con los datos leídos y agregarlo a la lista
-                Contacto contacto = new Contacto(nombre, apellido, direccion, telefono, email);
-                contacto.setId(Integer.parseInt(id));
-                lista.add(contacto); // Aquí se corrige el nombre de la colección
-                
+                directorio.agregarContacto(nombre1, apellido1, direccion1, telefono1, email1);
             }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("No se pudo encontrar el archivo de datos.");
-        } catch (IOException e) {
-            System.out.println("Error durante la lectura del archivo.");
+        } catch (ContactoRepetidoException ex) {
+            Logger.getLogger(SvAgregar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return lista;
     }
-
+    
 }
