@@ -1,0 +1,9 @@
+Servlets\SvAgregar.class
+Clases\Contacto.class
+com\mycompany\mundo\resources\JavaEE8Resource.class
+Logica\Directorio.class
+Clases\ContactoRepetidoException.class
+com\mycompany\mundo\JAXRSConfiguration.class
+Clases\Persistencia.class
+Servlets\SvEliminar.class
+Servlets\SvEditar.class
