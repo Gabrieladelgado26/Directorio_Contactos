@@ -327,7 +327,8 @@
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                                                                <button type="submit" class="btn btn-primary">Si</button>
+                                                                                
+                                                                                <a href="SvEliminar?nombre=<%= contacto.getNombre()%>" class="btn btn-primary"  >Si</a>
                                                                             </div>
                                                                         </form>
 

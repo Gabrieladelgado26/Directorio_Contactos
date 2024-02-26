@@ -63,6 +63,18 @@ public class Directorio {
         }
     }
 
+    /**
+     * Elimina un contacto del directorio por nombre.
+     *
+     * @param nombre nombre del contacto que se va a eliminar
+     */
+    public void eliminarContactoPorNombre(String nombre) {
+        if (contactoRaiz != null) {
+            contactoRaiz = contactoRaiz.eliminar(nombre);
+            verificarInvariante();
+        }
+    }
+
     // -----------------------------------------------------------------
     // M�todos privados
     // -----------------------------------------------------------------
