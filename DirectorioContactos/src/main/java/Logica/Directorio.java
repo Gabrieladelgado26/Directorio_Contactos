@@ -50,6 +50,19 @@ public class Directorio {
         verificarInvariante();
     }
 
+    public void editarContacto(String nombre, Contacto contactoActualizado) {
+        Contacto contactoExistente = contactoRaiz.buscarIterativo(nombre);
+
+        if (contactoExistente != null) {
+            // Actualizar los campos del contacto existente con los datos del contacto actualizado
+            contactoExistente.setNombre(contactoActualizado.getNombre());
+            contactoExistente.setApellido(contactoActualizado.getApellido());
+            contactoExistente.setDireccion(contactoActualizado.getDireccion());
+            contactoExistente.setTelefono(contactoActualizado.getTelefono());
+            contactoExistente.setEmail(contactoActualizado.getEmail());
+        }
+    }
+
     // -----------------------------------------------------------------
     // M�todos privados
     // -----------------------------------------------------------------
@@ -170,6 +183,5 @@ public class Directorio {
             return resp;
         }
     }
-    
 
 }

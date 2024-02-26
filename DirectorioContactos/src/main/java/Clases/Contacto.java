@@ -23,6 +23,9 @@ public class Contacto implements Comparable {
     private Contacto izq;
     private Contacto der;
 
+    public Contacto() {
+    }
+
     /**
      * Constructor de la clase Contacto.
      *
@@ -283,7 +286,7 @@ public class Contacto implements Comparable {
             return (der == null) ? null : der.buscar(unNombre);
         }
     }
-
+    
     /**
      * Elimina un contacto del �rbol que comienza en este nodo.
      *

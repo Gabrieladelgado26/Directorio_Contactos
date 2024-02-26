@@ -223,7 +223,7 @@
                                                                 <td><%= contacto.getEmail()%></td>
                                                                 <td>
                                                                     <a href="#"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDetalles<%= contacto.getId()%>"><i class="fa fa-eye"></i></a>
-                                                                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModalConfirm<%= contacto.getId()%>"><i class="fa fa-marker"></i></a>         
+                                                                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModalConfirm<%= contacto.getNombre()%>"><i class="fa fa-marker"></i></a>         
                                                                     <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalConfirm<%= contacto.getId()%>"><i class="fa fa-trash-alt"></i></a>
 
 
@@ -260,7 +260,7 @@
 
 
                                                             <!------------- Modal para editar informacion del conctacto  ------------->
-                                                            <div class="modal fade" id="editModalConfirm<%= contacto.getId()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="editModalConfirm<%= contacto.getNombre()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -268,7 +268,7 @@
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
 
-                                                                        <form method="post" action="SvAgregar">
+                                                                        <form method="post" action="SvEditar">
                                                                             <div class="modal-body">
 
                                                                                 <div class="col-md-12">
