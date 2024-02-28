@@ -1,7 +1,0 @@
-1,adrian,Landazury,Pasto,+573232386890,ad@gmail.com
-2,Alexander,Mesias,No se,323456,t@gmail.com
-3,Camilo,Angulo,Guayabal,3174609128,a@gmail.com
-4,Fabio,Landazuri,Pastos,+573232386890,ad@gmail.com
-5,jeferson,Castillo Angulo,Pasto,+573232386890,adrianangulo1080@gmail.com
-7,Samba,adfasdf,Pasto,+573232386890,adcastillo@unal.edu.co
-8,Xamir,adfasdf,Pasto,+573232386890,quinonezjoiner@gmail.com
