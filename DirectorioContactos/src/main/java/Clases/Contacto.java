@@ -113,6 +113,12 @@ public class Contacto implements Comparable {
     public void setHijoDerecho(Contacto hijoDerecho) {
         this.der = hijoDerecho;
     }
+    
+    @Override
+    public int compareTo(Object o) {
+        Contacto otro = (Contacto) o;
+        return nombre.compareToIgnoreCase(otro.nombre);
+    }
 
     /**
      * Indica si este nodo es una hoja
@@ -356,11 +362,5 @@ public class Contacto implements Comparable {
      */
     public void verificarInvariante() {
         assert nombre != null : "Nombre inv�lido";
-    }
-
-    @Override
-    public int compareTo(Object o) {
-        Contacto otro = (Contacto) o;
-        return nombre.compareToIgnoreCase(otro.nombre);
     }
 }

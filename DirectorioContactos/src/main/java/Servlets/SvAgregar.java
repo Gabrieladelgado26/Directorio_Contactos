@@ -36,26 +36,22 @@ public class SvAgregar extends HttpServlet {
         String telefono = request.getParameter("telefono");
         String correo = request.getParameter("correo");
         
-        boolean contactoRepetido;
-        
-        // Se redirige a la página index.jsp dependiendo de si el contacto es repetido o no
-        if (contactoRepetido = true) {
-            System.out.println("El contacto ya se encuentra en el directorio");
-            request.getSession().setAttribute("errorContactoRepetido", true);
-            response.sendRedirect("index.jsp");
-        } else {
-            // Si el contacto no es repetido, se establece un atributo de sesión y se redirige a index.jsp
-            HttpSession session = request.getSession();
-            session.setAttribute("errorContactoRepetido", false);
+        try {
+
             persistencia.leerArchivoYAgregarContactos(context, directorio);
-            try {
-                directorio.agregarContacto(nombres, apellidos, direccion, telefono, correo);
-            } catch (ContactoRepetidoException ex) {
-                Logger.getLogger(SvAgregar.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+            directorio.agregarContacto(nombres, apellidos, direccion, telefono, correo);
+
             persistencia.escribirArchivo(directorio.darListaContactos(), context);
+
             request.getSession().setAttribute("listaContactos", directorio.darListaContactos());
+
             response.sendRedirect("index.jsp");
+
+        } catch (ContactoRepetidoException ex) {
+            System.out.println("El contacto está repetido");
+            response.sendRedirect("index.jsp");
+            ex.printStackTrace();
         }
     }
 }

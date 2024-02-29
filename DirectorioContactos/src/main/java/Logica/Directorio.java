@@ -56,13 +56,27 @@ public class Directorio {
             verificarInvariante();
         }
     }
+    
+    /**
+     * Retorna una lista ordenada con los nombres de los contactos
+     *
+     * @return lista de contactos ordenada por orden alfab�tico. Si la lista
+     * est� vac�a retorna null
+     */
+    public Collection darListaContactos() {
+        if (contactoRaiz == null) {
+            return null;
+        } else {
+            Collection resp = new ArrayList();
+            contactoRaiz.inorden(resp);
+            return resp;
+        }
+    }
 
     // -----------------------------------------------------------------
-    // M�todos privados
+    // Metodos privados
     // -----------------------------------------------------------------
-    // -----------------------------------------------------------------
-    // Invariante
-    // -----------------------------------------------------------------
+    
     /**
      * Verifica que en el directorio no haya dos contactos con el mismo nombre
      */
@@ -108,6 +122,10 @@ public class Directorio {
     private int darPeso() {
         return contactoRaiz == null ? 0 : contactoRaiz.darPeso();
     }
+    
+    // -----------------------------------------------------------------
+    // Invariante
+    // -----------------------------------------------------------------
 
     /**
      * Verifica el invariante de la clase. <br>
@@ -120,21 +138,5 @@ public class Directorio {
         assert sinRepetidos() : "Contactos repetidos";
         assert esOrdenado() : "No es un arbol ordenado";
         assert numContactos == darPeso() : "Numero incorrecto de contactos";
-    }
-
-    /**
-     * Retorna una lista ordenada con los nombres de los contactos
-     *
-     * @return lista de contactos ordenada por orden alfab�tico. Si la lista
-     * est� vac�a retorna null
-     */
-    public Collection darListaContactos() {
-        if (contactoRaiz == null) {
-            return null;
-        } else {
-            Collection resp = new ArrayList();
-            contactoRaiz.inorden(resp);
-            return resp;
-        }
     }
 }

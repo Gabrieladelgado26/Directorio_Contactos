@@ -19,17 +19,15 @@ import javax.servlet.ServletContext;
  * @author Adrian Castillo - Gabriela Delgado - Ana Cristina Mera
  */
 public class Persistencia {
-    
-    public Persistencia() {
-    }
 
     /**
      * Método que escribe un archivo .txx con la lista de contactos
+     *
      * @param lista
      * @param context
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      */
-public void escribirArchivo(Collection<Contacto> lista, ServletContext context) {
+    public void escribirArchivo(Collection<Contacto> lista, ServletContext context) {
         // Ubicación del archivo de datos
         String rutaRelativa = "/data/contactosRegistrados.txt";
         String rutaAbsoluta = context.getRealPath(rutaRelativa);
@@ -59,11 +57,13 @@ public void escribirArchivo(Collection<Contacto> lista, ServletContext context) 
     }
 
     /**
-     * Método que permite leer el archivo contactosRegistrados.txt que contiene la lista de contactos
+     * Método que permite leer el archivo contactosRegistrados.txt que contiene
+     * la lista de contactos
+     *
      * @param context
      * @return
      * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws IOException
      */
     public void leerArchivoYAgregarContactos(ServletContext context, Directorio directorio) throws IOException {
         String rutaRelativa = "/data/contactosRegistrados.txt";
@@ -86,5 +86,5 @@ public void escribirArchivo(Collection<Contacto> lista, ServletContext context) 
             Logger.getLogger(SvAgregar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

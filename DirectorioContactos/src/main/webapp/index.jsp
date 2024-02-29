@@ -7,22 +7,6 @@
 <%@include file= "templates/header.jsp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%
-    Boolean errorContactoRepetido = (Boolean) request.getSession().getAttribute("errorContactoRepetido");
-    if (errorContactoRepetido != null && errorContactoRepetido) {
-%>
-<script>
-    $(document).ready(function() {
-        contactoRepetido();
-    });
-</script>
-<%
-        // Reinicia el atributo en la sesión después de mostrar el modal
-        request.getSession().setAttribute("errorContactoRepetido", false);
-    }
-%>
-
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -169,7 +153,7 @@
 
                                         <!-- Page Heading -->
                                         <h2 class="h3 mb-2 text-gray-800">DIRECTORIO DE CONTACTOS</h2>
-                                        <p class="mb-4">Encuentra todos tus contactos registrados en este directorio de contactos, agrega, visualiza, filtra y elimina los contactos que desees.</p>
+                                        <p class="mb-4">Encuentra todos tus contactos registrados en este directorio de contactos, agrega, visualiza, busca y elimina los contactos que desees.</p>
 
                                         <!-------fin de boton agregar contacto---------->
                                         <!-- DataTales -->
