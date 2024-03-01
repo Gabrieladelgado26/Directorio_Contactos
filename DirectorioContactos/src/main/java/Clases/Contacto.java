@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Clases;
 
 import java.util.ArrayList;
@@ -9,7 +5,7 @@ import java.util.Collection;
 
 /**
  *
- * @author ADRIAN CASTILLO
+ * @author Adrian Castillo - Gabriela Delgado - Ana Cristina Mera
  */
 public class Contacto implements Comparable {
 
@@ -22,6 +18,12 @@ public class Contacto implements Comparable {
     private String email;
     private Contacto izq;
     private Contacto der;
+
+    /**
+     * Constructor vacio
+     */
+    public Contacto() {
+    }
 
     /**
      * Constructor de la clase Contacto.
@@ -43,10 +45,11 @@ public class Contacto implements Comparable {
         this.email = email;
         this.der = null;
         this.izq = null;
-        verificarInvariante();
-
     }
 
+    /**
+     * GETTERS AND SETTERS
+     */
     public int getId() {
         return id;
     }
@@ -110,6 +113,12 @@ public class Contacto implements Comparable {
     public void setHijoDerecho(Contacto hijoDerecho) {
         this.der = hijoDerecho;
     }
+    
+    @Override
+    public int compareTo(Object o) {
+        Contacto otro = (Contacto) o;
+        return nombre.compareToIgnoreCase(otro.nombre);
+    }
 
     /**
      * Indica si este nodo es una hoja
@@ -138,21 +147,6 @@ public class Contacto implements Comparable {
      */
     public Contacto darMayor() {
         return (der == null) ? this : der.darMayor();
-    }
-
-    /**
-     * Retorna la altura del �rbol de contactos que comienza en este nodo
-     *
-     * @return altura del �rbol que comienza en este nodo
-     */
-    public int darAltura() {
-        if (esHoja()) {
-            return 1;
-        } else {
-            int a1 = (izq == null) ? 0 : izq.darAltura();
-            int a2 = (der == null) ? 0 : der.darAltura();
-            return 1 + Math.max(a1, a2);
-        }
     }
 
     /**
@@ -267,22 +261,7 @@ public class Contacto implements Comparable {
         return null;
     }
 
-    /**
-     * Implementaci�n recursiva para localizar un contacto en el �rbol que
-     * comienza en este nodo
-     *
-     * @param unNombre nombre que se va a buscar - unNombre != null
-     * @return contacto asociado al nombre. Si no lo encuentra retorna null;
-     */
-    public Contacto buscar(String unNombre) {
-        if (nombre.compareToIgnoreCase(unNombre) == 0) {
-            return this;
-        } else if (nombre.compareToIgnoreCase(unNombre) > 0) {
-            return (izq == null) ? null : izq.buscar(unNombre);
-        } else {
-            return (der == null) ? null : der.buscar(unNombre);
-        }
-    }
+
 
     /**
      * Elimina un contacto del �rbol que comienza en este nodo.
@@ -318,7 +297,6 @@ public class Contacto implements Comparable {
         }
         return this;
     }
-
     /**
      * Retorna una colecci�n con los nombres de todos los contactos, ordenados
      * alfab�ticamente en orden ascendente
@@ -387,11 +365,4 @@ public class Contacto implements Comparable {
     public void verificarInvariante() {
         assert nombre != null : "Nombre inv�lido";
     }
-
-    @Override
-    public int compareTo(Object o) {
-        Contacto otro = (Contacto) o;
-        return nombre.compareToIgnoreCase(otro.nombre);
-    }
-
 }

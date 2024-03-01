@@ -1,16 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Servlets;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletContext;
 import Logica.Directorio;
 import Clases.Contacto;
 import Clases.ContactoRepetidoException;
@@ -24,9 +20,9 @@ import javax.servlet.ServletContext;
 
 /**
  *
- * @author ADRIAN CASTILLO
+ * @author Adrian Castillo - Gabriela Delgado - Ana Cristina Mera
  */
-@WebServlet(name = "SvAgregar", urlPatterns = {"/SvAgregar"})
+@WebServlet(name = "SvAgregar", urlPatterns = {"/SvAgregar"}, loadOnStartup = 1)
 public class SvAgregar extends HttpServlet {
 
     Directorio directorio = new Directorio();
@@ -78,5 +74,4 @@ public class SvAgregar extends HttpServlet {
             // Manejar la excepción de contacto repetido según sea necesario
         }
     }
-
 }

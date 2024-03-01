@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Logica;
 
 import Clases.Contacto;
@@ -12,7 +9,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author ADRIAN CASTILLO
+ * @author Adrian Castillo - Gabriela Delgado - Ana Cristina Mera
  */
 public class Directorio {
 
@@ -26,15 +23,13 @@ public class Directorio {
     }
 
     /**
-     * Agrega un contacto al directorio <br>
-     * <b>post: </b>El contacto ha sido agregado al directorio.
      *
-     * @param nom nombre del contacto - nom != null
-     * @param tel tel�fono del contacto
-     * @param dir direcci�n del contacto
-     * @param email direcci�n electr�nica del contacto
-     * @throws ContactoRepetidoException cuando ya existe un contacto con ese
-     * nombre
+     * @param nombre Nombre del contacto
+     * @param apellido Apellido del contacto
+     * @param direccion Dirección del contacto
+     * @param telefono Telefono del contacto
+     * @param email Email del contacto
+     * @throws ContactoRepetidoException
      */
     public void agregarContacto(String nombre, String apellido, String direccion, String telefono, String email) throws ContactoRepetidoException {
         Contacto c = new Contacto(nombre, apellido, direccion, telefono, email);
@@ -45,6 +40,7 @@ public class Directorio {
             c.setId(numContactos);
             contactoRaiz.insertar(c);
 
+
         }
         
         numContactos++;
@@ -52,6 +48,7 @@ public class Directorio {
     }
 
     /**
+     * Elimina un contacto del directorio por id.
      * Elimina un contacto del directorio por id.
      *
      * @param id id del contacto que se va a eliminar
@@ -79,8 +76,9 @@ public class Directorio {
     }
 
     // -----------------------------------------------------------------
-    // Invariante
+    // Metodos privados
     // -----------------------------------------------------------------
+    
     /**
      * Verifica que en el directorio no haya dos contactos con el mismo nombre
      */
@@ -126,6 +124,10 @@ public class Directorio {
     private int darPeso() {
         return contactoRaiz == null ? 0 : contactoRaiz.darPeso();
     }
+    
+    // -----------------------------------------------------------------
+    // Invariante
+    // -----------------------------------------------------------------
 
     /**
      * Verifica el invariante de la clase. <br>
@@ -136,8 +138,8 @@ public class Directorio {
      */
     private void verificarInvariante() {
         assert sinRepetidos() : "Contactos repetidos";
-        assert esOrdenado() : "No es un �rbol ordenado";
-        assert numContactos == darPeso() : "N�mero incorrecto de contactos";
+        assert esOrdenado() : "No es un arbol ordenado";
+        assert numContactos == darPeso() : "Numero incorrecto de contactos";
     }
 
     /**
