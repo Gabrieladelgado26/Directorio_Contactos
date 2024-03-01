@@ -22,9 +22,16 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SvEliminar", urlPatterns = {"/SvEliminar"})
 public class SvEliminar extends HttpServlet {
 
-    private Directorio directorio = new Directorio();
-    private Persistencia persistencia = new Persistencia();
+    private Directorio directorio;
+    private Persistencia persistencia;
     private boolean contactosAgregados = false;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        directorio = new Directorio();
+        persistencia = new Persistencia();
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

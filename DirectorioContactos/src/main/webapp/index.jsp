@@ -61,7 +61,7 @@
                                             </button>
                                         </form>
 
-                 
+
 
                                         <!-- Topbar Navbar -->
                                         <ul class="navbar-nav ml-auto">
@@ -161,7 +161,31 @@
                                         <!-- DataTales -->
                                         <div class="card shadow mb-4">
                                             <div class="card-header py-3">
-                                                <h6 class="m-0 font-weight-bold text-primary">Directorio de contactos</h6>
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        <h6 class="m-0 font-weight-bold text-primary">Directorio de contactos</h6>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <% if (request.getSession().getAttribute("ContactoAgregado") != null && (boolean) request.getSession().getAttribute("ContactoAgregado") == true) { %>
+
+
+
+                                                        <div class="alert alert-success d-flex align-items-center" role="alert" id="Agregado" style="height: 30px">
+                                                            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Éxito:" _mstaria-label="106548" _mstHash="248" style="width: 30px"><use xlink:href="#check-circle-fill"></use></svg>
+                                                            <div _msttexthash="1158755" _msthash="249" style="text-align: center">Se ha agregado un contacto </div>
+                                                        </div>
+
+                                                        <script>
+                                                            // Ocultar la alerta después de 5 segundos (5000 milisegundos)
+                                                            setTimeout(function () {
+                                                                $('#Agregado').alert('close');
+                                                            }, 5000);
+                                                        </script>
+                                                        <% request.getSession().removeAttribute("ContactoAgregado"); %>
+                                                        <% }%>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -179,7 +203,6 @@
                                                         </thead>
                                                         <tbody>
                                                             <%  ServletContext context = getServletContext();
-                                                                Directorio directorio = new Directorio();
                                                                 Persistencia persistencia = new Persistencia();
 
                                                                 Collection<Contacto> lista = persistencia.leerListaContactos(context);
@@ -212,7 +235,8 @@
                                                                 </td>
                                                             </tr>
 
-
+                                                            <!--------------------------------  Modal para agregar un contacto  ------------------------------------------------->
+                                                            <%@include file= "templates/Modal_Agregar.jsp" %>
 
                                                             <!--------------------------------  Modal para ver informacion de conctacto ------------------------------------------------->
 
@@ -318,6 +342,8 @@
                                                             <!--------------------------------------------- fin de modal ------------------------------------------------------------->
 
 
+
+
                                                             <!------------- Modal para editar informacion del conctacto  ------------->
                                                             <div class="modal fade" id="editModalConfirm<%= contacto.getId()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
@@ -361,7 +387,7 @@
                                                                 </div>
                                                             </div>
 
-    <!--------------------------------------------- fin de modal ------------------------------------------------------------->
+                                                            <!--------------------------------------------- fin de modal ------------------------------------------------------------->
 
 
                                                             <!----------------------------------------- Modal para eliminar contacto ------------------------------------------------->
@@ -385,16 +411,54 @@
                                                                             </div>
                                                                         </form>
 
-            </div>
-        </div>
-    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
                                                             <!----------------------------------------- Fin del modal para eliminar contacto ------------------------------------------>
+                                                            <!------------------------------------------ modal de contacto repetido  --------------------------------------------------->
+                                                            <c:if test="${requestScope.showModal}">
+                                                                <div
+                                                                    class="modal fade "
+                                                                    id="exampleModal"
+                                                                    tabindex="-1"
+                                                                    aria-labelledby="exampleModalLabel"
+                                                                    aria-hidden="true"
+
+                                                                    >
+                                                                    <div class="modal-dialog modal-dialog-centered"  >
+                                                                        <div class="modal-content">
+
+                                                                            <div class="modal-body"  >
+                                                                                <div class="row position-center">
+
+                                                                                    <div class="col">
+
+                                                                                        <h4><%=request.getAttribute("nombre")%> ya esta agregad@</h4>
+                                                                                    </div>
+                                                                                    <div class="col-2">
+                                                                                        <button
+                                                                                            type="button"
+                                                                                            class="btn"
+                                                                                            data-bs-dismiss="modal"
+                                                                                            aria-label="Close"
+                                                                                            ><i class="bi bi-x-lg"></i></button>
+                                                                                    </div>
+
+                                                                                </div>
+
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </c:if>
                                                             <%
                                                                     }
                                                                 }
                                                             %>
-                                                            </body>
+                                                            
 
 
                                                     </table>
@@ -408,85 +472,85 @@
                                 </div>
                                 <!-- Fin de Main Content -->
 
-    <% if (request.getSession().getAttribute("ContactoAgregado") != null && (boolean) request.getSession().getAttribute("ContactoAgregado") == true) { %>
-    <div class="toast fade show p-3" role="alert" aria-live="assertive"id="Agregado" style="text-align: center; size: 28px">
-        <div class="toast-body">
-            <label>Se agrego un nuevo contacto</label>
-        </div>
-    </div>
+                                <% if (request.getSession().getAttribute("ContactoAgregado") != null && (boolean) request.getSession().getAttribute("ContactoAgregado") == true) { %>
+                                <div class="toast fade show p-3" role="alert" aria-live="assertive"id="Agregado" style="text-align: center; size: 28px">
+                                    <div class="toast-body">
+                                        <label>Se agrego un nuevo contacto</label>
+                                    </div>
+                                </div>
 
-    <script>
-        // Ocultar la alerta después de 5 segundos (5000 milisegundos)
-        setTimeout(function () {
-            $('#Agregado').alert('close');
-        }, 4000);
-    </script>
-    <% request.getSession().removeAttribute("alertaAgregar"); %>
-    <% }%>
+                                <script>
+                                    // Ocultar la alerta después de 5 segundos (5000 milisegundos)
+                                    setTimeout(function () {
+                                        $('#Agregado').alert('close');
+                                    }, 4000);
+                                </script>
+                                <% request.getSession().removeAttribute("alertaAgregar"); %>
+                                <% }%>
 
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Your Website 2020</span>
-            </div>
-        </div>
-    </footer>
-    <!-- Fin de Footer -->
+                                <!-- Footer -->
+                                <footer class="sticky-footer bg-white">
+                                    <div class="container my-auto">
+                                        <div class="copyright text-center my-auto">
+                                            <span>Copyright &copy; Your Website 2020</span>
+                                        </div>
+                                    </div>
+                                </footer>
+                                <!-- Fin de Footer -->
 
-</div>
-<!-- Fin de Content Wrapper -->
+                            </div>
+                            <!-- Fin de Content Wrapper -->
 
-</div>
-<!-- Fin de Page Wrapper -->
+                            </div>
+                            <!-- Fin de Page Wrapper -->
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+                            <!-- Scroll to Top Button-->
+                            <a class="scroll-to-top rounded" href="#page-top">
+                                <i class="fas fa-angle-up"></i>
+                            </a>
 
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                            <!-- Bootstrap core JavaScript-->
+                            <script src="vendor/jquery/jquery.min.js"></script>
+                            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+                            <!-- Core plugin JavaScript-->
+                            <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
+                            <!-- Custom scripts for all pages-->
+                            <script src="js/sb-admin-2.min.js"></script>
 
-<!-- Page level plugins -->
-<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+                            <!-- Page level plugins -->
+                            <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+                            <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-<!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>
+                            <!-- Page level custom scripts -->
+                            <script src="js/demo/datatables-demo.js"></script>
 
-<script>
-    function contactoRepetido() {
-        
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-top-center",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
+                            <script>
+                                    function contactoRepetido() {
 
-        // Mostrar una notificación Toastr de error
-        toastr.error('El nombre que intenta ingresar ya se encuentra en el directorio', 'Error');
-    }
-</script>
+                                        toastr.options = {
+                                            "closeButton": false,
+                                            "debug": false,
+                                            "newestOnTop": false,
+                                            "progressBar": false,
+                                            "positionClass": "toast-top-center",
+                                            "preventDuplicates": false,
+                                            "onclick": null,
+                                            "showDuration": "300",
+                                            "hideDuration": "1000",
+                                            "timeOut": "5000",
+                                            "extendedTimeOut": "1000",
+                                            "showEasing": "swing",
+                                            "hideEasing": "linear",
+                                            "showMethod": "fadeIn",
+                                            "hideMethod": "fadeOut"
+                                        };
 
-<!-- Inclución de la plantilla de footer -->
-<%@include file= "templates/footer.jsp" %>
+                                        // Mostrar una notificación Toastr de error
+                                        toastr.error('El nombre que intenta ingresar ya se encuentra en el directorio', 'Error');
+                                    }
+                            </script>
+
+                            <!-- Inclución de la plantilla de footer -->
+                            <%@include file= "templates/footer.jsp" %>

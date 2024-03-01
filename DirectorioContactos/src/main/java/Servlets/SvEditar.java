@@ -23,9 +23,16 @@ import jdk.internal.logger.BootstrapLogger;
 @WebServlet(name = "SvEditar", urlPatterns = {"/SvEditar"})
 public class SvEditar extends HttpServlet {
 
-    private Directorio directorio = new Directorio();
-    private Persistencia persistencia = new Persistencia();
+    private Directorio directorio;
+    private Persistencia persistencia;
     private boolean contactosAgregados = false;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        directorio = new Directorio();
+        persistencia = new Persistencia();
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

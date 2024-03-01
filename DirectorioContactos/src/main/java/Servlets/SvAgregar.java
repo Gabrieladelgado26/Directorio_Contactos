@@ -6,16 +6,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletContext;
+
 import Logica.Directorio;
 import Clases.Contacto;
 import Clases.ContactoRepetidoException;
 import Clases.Persistencia;
-import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.servlet.ServletContext;
 
 /**
@@ -25,9 +24,16 @@ import javax.servlet.ServletContext;
 @WebServlet(name = "SvAgregar", urlPatterns = {"/SvAgregar"}, loadOnStartup = 1)
 public class SvAgregar extends HttpServlet {
 
-    Directorio directorio = new Directorio();
-    Persistencia persistencia = new Persistencia();
+    Directorio directorio;
+    Persistencia persistencia;
     boolean contactosAgregados = false;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        directorio = new Directorio();
+        persistencia = new Persistencia();
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -44,7 +50,13 @@ public class SvAgregar extends HttpServlet {
 
         // Se lee la lista de contactos desde la persistencia
         Collection<Contacto> listaContactos = persistencia.leerListaContactos(context);
-
+        if(directorio.darListaContactos()!=null){
+            
+            if (!directorio.darListaContactos().equals(listaContactos)) {
+                directorio = new Directorio();
+                contactosAgregados = false;
+            }
+        }
         // Verificar si los contactos ya fueron agregados
         if (!contactosAgregados) {
             directorio.agregarListaContactos(listaContactos);
@@ -66,12 +78,18 @@ public class SvAgregar extends HttpServlet {
             // Guardar la lista actualizada en la persistencia
             persistencia.guardarContactos((List<Contacto>) directorio.darListaContactos(), context);
 
+            request.getSession().setAttribute("ContactoAgregado", true);
+
             // Redireccionar a la página principal
             response.sendRedirect("index.jsp");
 
         } catch (ContactoRepetidoException ex) {
             System.out.println("El contacto está repetido: " + nombres);
-            // Manejar la excepción de contacto repetido según sea necesario
+
+            request.setAttribute("nombre", nombres);
+            request.setAttribute("showModal", true);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+
         }
     }
 }
