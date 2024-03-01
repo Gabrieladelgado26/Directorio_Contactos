@@ -44,53 +44,11 @@ public class Directorio {
         } else {
             c.setId(numContactos);
             contactoRaiz.insertar(c);
-            
+
         }
+        System.out.println("se agrego un contacto");
         numContactos++;
         verificarInvariante();
-    }
-
-    // -----------------------------------------------------------------
-    // M�todos privados
-    // -----------------------------------------------------------------
-    /**
-     * Retorna la altura del �rbol de contactos
-     *
-     * @return La altura del �rbol de contactos
-     */
-    private int darAltura() {
-        return contactoRaiz == null ? 0 : contactoRaiz.darAltura();
-    }
-
-    /**
-     * Retorna el menor contacto del directorio, teniendo en cuenta el orden
-     * alfab�tico de los nombres
-     *
-     * @return El contacto con menor nombre del directorio o null si el
-     * directorio es vac�o
-     */
-    private Contacto darMenor() {
-        return contactoRaiz == null ? null : contactoRaiz.darMenor();
-    }
-
-    /**
-     * Retorna el mayor contacto del directorio, teniendo en cuenta el orden
-     * alfab�tico de los nombres
-     *
-     * @return El contacto con mayor nombre del directorio o null si el
-     * directorio es vac�o
-     */
-    private Contacto darMayor() {
-        return contactoRaiz == null ? null : contactoRaiz.darMayor();
-    }
-
-    /**
-     * Retorna el n�mero de hojas que tiene el �rbol de contactos
-     *
-     * @return N�mero de hojas que tiene el �rbol de contactos
-     */
-    private int contarHojas() {
-        return contactoRaiz == null ? 0 : contactoRaiz.contarHojas();
     }
 
     // -----------------------------------------------------------------
@@ -161,7 +119,7 @@ public class Directorio {
      * @return lista de contactos ordenada por orden alfab�tico. Si la lista
      * est� vac�a retorna null
      */
-    public Collection darListaContactos() {
+    public Collection<Contacto> darListaContactos() {
         if (contactoRaiz == null) {
             return null;
         } else {
@@ -170,9 +128,7 @@ public class Directorio {
             return resp;
         }
     }
-    
-    
-    
 
+  
 
 }

@@ -191,13 +191,25 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <%
-                                                                Collection<Contacto> listaContactos = (Collection<Contacto>) request.getSession().getAttribute("listaContactos");
+                                                            <%  ServletContext context = getServletContext();
+                                                                Directorio directorio = new Directorio();
+                                                                Persistencia persistencia = new Persistencia();
+                                                                
+                                                                
+                                                                Collection<Contacto> lista = persistencia.leerListaContactos(context);
+                                                                
+                                                                
+                                                                Collection<Contacto> listaContactos = lista;
+                                                                
+                                                                
                                                                 if (listaContactos == null) {
 
                                                             %>
                                                             <tr>
-
+                                                                <td>
+                                                                    No hay contactos
+                                                                </td>
+                                                                
                                                             </tr>
 
 
@@ -345,7 +357,7 @@
                                                                     }
                                                                 }
                                                             %>
-                                                        </tbody>
+                                                        </body>
 
 
                                                     </table>

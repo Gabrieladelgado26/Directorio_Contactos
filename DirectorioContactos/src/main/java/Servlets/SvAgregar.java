@@ -14,9 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import Logica.Directorio;
 import Clases.Contacto;
 import Clases.ContactoRepetidoException;
+import Clases.Persistencia;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -26,7 +30,8 @@ import java.util.logging.Logger;
 public class SvAgregar extends HttpServlet {
 
     Directorio directorio = new Directorio();
-    
+    Persistencia persistencia = new Persistencia();
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -38,25 +43,44 @@ public class SvAgregar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ServletContext context = getServletContext();
 
+        // Se lee la lista de contactos desde la persistencia
+        Collection<Contacto> listaContactos = persistencia.leerListaContactos(context);
+
+        // Verificar si la lista de contactos no es nula y no está vacía
+        if (listaContactos != null && !listaContactos.isEmpty()) {
+            for (Contacto contacto : listaContactos) {
+                try {
+                    // Agregar cada contacto a la instancia de Directorio
+                    directorio.agregarContacto(contacto.getNombre(), contacto.getApellido(), contacto.getDireccion(), contacto.getTelefono(), contacto.getEmail());
+                } catch (ContactoRepetidoException ex) {
+                    System.out.println("El contacto está repetido: " + contacto.getNombre());
+                }
+            }
+        }
+
+        // Obtener parámetros del formulario
         String nombres = request.getParameter("nombres");
         String apellidos = request.getParameter("apellidos");
         String direccion = request.getParameter("direccion");
         String telefono = request.getParameter("telefono");
         String correo = request.getParameter("correo");
 
-        //System.out.println(nombres +", "+apellidos+", "+direccion+", "+telefono+", "+correo);
         try {
+            // Agregar el nuevo contacto al Directorio
             directorio.agregarContacto(nombres, apellidos, direccion, telefono, correo);
-            Collection<Contacto> listaContactos = directorio.darListaContactos();
-            request.getSession().setAttribute("listaContactos",listaContactos);
-            
+
+            // Guardar la lista actualizada en la persistencia
+            persistencia.guardarContactos((List<Contacto>) directorio.darListaContactos(), context);
+
+            // Redireccionar a la página principal
             response.sendRedirect("index.jsp");
 
         } catch (ContactoRepetidoException ex) {
-            System.out.println("El contacto esta repetido");;
+            System.out.println("El contacto está repetido: " + nombres);
+            // Manejar la excepción de contacto repetido según sea necesario
         }
-
     }
 
 }
