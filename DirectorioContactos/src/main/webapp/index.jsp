@@ -59,19 +59,7 @@
                                             </button>
                                         </form>
 
-                                        <!-- Topbar Busqueda -->
-                                        <form
-                                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar contacto..."
-                                                       aria-label="Search" aria-describedby="basic-addon2">
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-primary" type="button">
-                                                            <i class="fas fa-search fa-sm"></i>
-                                                        </button>
-                                                    </div>
-                                            </div>
-                                        </form>
+                 
 
                                         <!-- Topbar Navbar -->
                                         <ul class="navbar-nav ml-auto">
@@ -194,14 +182,11 @@
                                                             <%  ServletContext context = getServletContext();
                                                                 Directorio directorio = new Directorio();
                                                                 Persistencia persistencia = new Persistencia();
-                                                                
-                                                                
+
                                                                 Collection<Contacto> lista = persistencia.leerListaContactos(context);
-                                                                
-                                                                
+
                                                                 Collection<Contacto> listaContactos = lista;
-                                                                
-                                                                
+
                                                                 if (listaContactos == null) {
 
                                                             %>
@@ -209,7 +194,7 @@
                                                                 <td>
                                                                     No hay contactos
                                                                 </td>
-                                                                
+
                                                             </tr>
 
 
@@ -226,57 +211,120 @@
                                                                 <td><%= contacto.getTelefono()%></td>
                                                                 <td><%= contacto.getEmail()%></td>
                                                                 <td>
-                                                                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#Modal_Ver_<%= contacto.getId()%>" role="button">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                                                                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                                                                        </svg>
-                                                                    </a>
-                                                                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#Modal_Editar_<%= contacto.getId()%>" role="button">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                                                        </svg>
-                                                                    </a>
-                                                                    <a class="btn btn-primary" href="#"  data-bs-toggle="modal" data-bs-target="#Modal_Eliminar_<%= contacto.getId()%>" role="button">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                                                        </svg>
-                                                                    </a>
+                                                                    <a href="#"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalDetalles<%= contacto.getId()%>"><i class="fa fa-eye"></i></a>  
+                                                                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModalConfirm<%= contacto.getId()%>"><i class="fa fa-marker"></i></a>
+                                                                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalConfirm<%= contacto.getId()%>"><i class="fa fa-trash-alt"></i></a>
                                                                 </td>
                                                             </tr>
 
 
-                                                            <!------------  Modal para ver informacion de conctacto ------------>
 
-                                                            <div class="modal fade" id="Modal_Ver_<%= contacto.getId()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog">
+                                                            <!--------------------------------  Modal para ver informacion de conctacto ------------------------------------------------->
+
+                                                            <div class="modal fade" id="exampleModalDetalles<%= contacto.getId()%>" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion de conctacto</h1>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            <h3 class="modal-title" id="exampleModalLabel">Detalles del contacto</h3>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            
-                                                                            <%= contacto.getId()%>
-                                                                            <%= contacto.getNombre()%>
-                                                                            <%= contacto.getApellido()%>
-                                                                            <%= contacto.getDireccion()%>
-                                                                            <%= contacto.getTelefono()%>
-                                                                            <%= contacto.getEmail()%>
+                                                                            <div class="row justify-content-center">
+                                                                                <div class="col text-center">
+                                                                                    <div class="card shadow">
+                                                                                        <div class="card-body">
+                                                                                            <h4 class="card-title fw-bold">Nombre</h4>
+                                                                                            <p class="card-text"><%= contacto.getNombre() + " " + contacto.getApellido()%></p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col text-center">
+                                                                                    <div class="card shadow">
+                                                                                        <div class="card-body">
+                                                                                            <h4 class="card-title fw-bold">Teléfono celular</h4>
+                                                                                            <p class="card-text"><%= contacto.getTelefono()%></p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                         <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                                                                            <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Más</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" data-bs-backdrop="static" tabindex="-1">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h3 class="modal-title fs-5" id="exampleModalToggleLabel2">Información del contacto</h3>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
+                                                                                <div class="col text-center">
+                                                                                    <div class="card shadow">
+                                                                                        <div class="card-body">
+                                                                                            <h4 class="card-title fw-bold">ID:</h4>
+                                                                                            <p class="card-text"><%= contacto.getId()%></p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col text-center">
+                                                                                    <div class="card shadow">
+                                                                                        <div class="card-body">
+                                                                                            <h4 class="card-title fw-bold">Nombre:</h4>
+                                                                                            <p class="card-text"><%= contacto.getNombre()%></p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col text-center">
+                                                                                    <div class="card shadow">
+                                                                                        <div class="card-body">
+                                                                                            <h4 class="card-title fw-bold">Apellido:</h4>
+                                                                                            <p class="card-text"><%= contacto.getApellido()%></p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col text-center">
+                                                                                    <div class="card shadow">
+                                                                                        <div class="card-body">
+                                                                                            <h4 class="card-title fw-bold">Dirección:</h4>
+                                                                                            <p class="card-text"><%= contacto.getDireccion()%></p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col text-center">
+                                                                                    <div class="card shadow">
+                                                                                        <div class="card-body">
+                                                                                            <h4 class="card-title fw-bold">Teléfono:</h4>
+                                                                                            <p class="card-text"><%= contacto.getTelefono()%></p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col text-center">
+                                                                                    <div class="card shadow">
+                                                                                        <div class="card-body">
+                                                                                            <h4 class="card-title fw-bold">Email:</h4>
+                                                                                            <p class="card-text"><%= contacto.getEmail()%></p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn btn-primary" data-bs-target="#exampleModalDetalles<%= contacto.getId()%>" data-bs-toggle="modal" data-bs-dismiss="modal">Menos información</button>
+                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                            <!-- fin de modal -->
+                                                            <!--------------------------------------------- fin de modal ------------------------------------------------------------->
 
 
                                                             <!------------- Modal para editar informacion del conctacto  ------------->
-                                                            <div class="modal fade" id="Modal_Editar_<%=contacto.getId()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="editModalConfirm<%= contacto.getId()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -284,7 +332,7 @@
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         </div>
 
-                                                                        <form method="post" action="SvAgregar">
+                                                                        <form method="post" action="SvEditar">
                                                                             <div class="modal-body">
 
                                                                                 <div class="col-md-12">
@@ -322,28 +370,24 @@
                                                             <!----------------- Fin de modal para editar informacion --------------->
 
 
-                                                            <!------------------- Modal para elimianr contacto --------------------->
+                                                            <!----------------------------------------- Modal para eliminar contacto ------------------------------------------------->
 
-                                                            <div class="modal fade" id="Modal_Eliminar_<%=contacto.getId()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                                <div class="modal-dialog">
+                                                            <div class="modal fade" id="deleteModalConfirm<%= contacto.getId()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Contacto</h1>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            <h3 class="modal-title fs-5 text-center" id="staticBackdropLabel">Eliminar Contacto</h3>
                                                                         </div>
 
                                                                         <form method="post" action="SvEliminar">
                                                                             <div class="modal-body">
-
                                                                                 <div class="col-md-12">
-                                                                                    <label for="nombres" class="form-label">¿Estas seguro de eliminar a <%=contacto.getNombre()%> <%=contacto.getApellido()%> ?</label>
-                                                                                    
+                                                                                    <h5 for="nombres" class="form-label">¿Estas seguro de eliminar a <%=contacto.getNombre()%> <%=contacto.getApellido()%>?</h5>
                                                                                 </div>
-                                                                                
                                                                             </div>
                                                                             <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                                                                <button type="submit" class="btn btn-primary">Si</button>
+                                                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                                                                                <a href="SvEliminar?nombre=<%= contacto.getNombre()%>" class="btn btn-danger"  >Si</a>
                                                                             </div>
                                                                         </form>
 
@@ -351,13 +395,12 @@
                                                                 </div>
                                                             </div>
 
-                                                            <!------------------- Fin del modal para eliminar contacto ----------------->
-
+                                                            <!----------------------------------------- Fin del modal para eliminar contacto ------------------------------------------>
                                                             <%
                                                                     }
                                                                 }
                                                             %>
-                                                        </body>
+                                                            </body>
 
 
                                                     </table>

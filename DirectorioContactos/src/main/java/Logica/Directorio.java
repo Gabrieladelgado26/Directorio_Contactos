@@ -46,9 +46,36 @@ public class Directorio {
             contactoRaiz.insertar(c);
 
         }
-        System.out.println("se agrego un contacto");
+        
         numContactos++;
         verificarInvariante();
+    }
+
+    /**
+     * Elimina un contacto del directorio por id.
+     *
+     * @param id id del contacto que se va a eliminar
+     */
+    public void eliminarContactoPorNombre(String nombre) {
+        if (contactoRaiz != null) {
+            contactoRaiz = contactoRaiz.eliminar(nombre);
+            System.out.println("se ha eliminado un contacto");
+            verificarInvariante();
+        }
+    }
+
+    public void editarContacto(String nombre, Contacto contactoActualizado) {
+        Contacto contactoExistente = contactoRaiz.buscarIterativo(nombre);
+
+        if (contactoExistente != null) {
+            // Actualizar los campos del contacto existente con los datos del contacto actualizado
+            contactoExistente.setNombre(contactoActualizado.getNombre());
+            contactoExistente.setApellido(contactoActualizado.getApellido());
+            contactoExistente.setDireccion(contactoActualizado.getDireccion());
+            contactoExistente.setTelefono(contactoActualizado.getTelefono());
+            contactoExistente.setEmail(contactoActualizado.getEmail());
+            System.out.println("El contacto a sido editado");
+        }
     }
 
     // -----------------------------------------------------------------
@@ -129,6 +156,20 @@ public class Directorio {
         }
     }
 
-  
+    public boolean agregarListaContactos(Collection<Contacto> listaContactos) {
+        if (listaContactos != null && !listaContactos.isEmpty()) {
+            for (Contacto contacto : listaContactos) {
+                try {
+                    // Agregar cada contacto a la instancia de Directorio
+                    agregarContacto(contacto.getNombre(), contacto.getApellido(), contacto.getDireccion(), contacto.getTelefono(), contacto.getEmail());
+                    
+                } catch (ContactoRepetidoException ex) {
+                    System.out.println("El contacto está repetido: " + contacto.getNombre());
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 
 }

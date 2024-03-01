@@ -31,6 +31,7 @@ public class SvAgregar extends HttpServlet {
 
     Directorio directorio = new Directorio();
     Persistencia persistencia = new Persistencia();
+    boolean contactosAgregados = false;
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -48,16 +49,11 @@ public class SvAgregar extends HttpServlet {
         // Se lee la lista de contactos desde la persistencia
         Collection<Contacto> listaContactos = persistencia.leerListaContactos(context);
 
-        // Verificar si la lista de contactos no es nula y no está vacía
-        if (listaContactos != null && !listaContactos.isEmpty()) {
-            for (Contacto contacto : listaContactos) {
-                try {
-                    // Agregar cada contacto a la instancia de Directorio
-                    directorio.agregarContacto(contacto.getNombre(), contacto.getApellido(), contacto.getDireccion(), contacto.getTelefono(), contacto.getEmail());
-                } catch (ContactoRepetidoException ex) {
-                    System.out.println("El contacto está repetido: " + contacto.getNombre());
-                }
-            }
+        // Verificar si los contactos ya fueron agregados
+        if (!contactosAgregados) {
+            directorio.agregarListaContactos(listaContactos);
+            System.out.println("Se cargaron los contacto en agregar");
+            contactosAgregados = true; // Cambiar el valor de la variable a true después de agregar los contactos
         }
 
         // Obtener parámetros del formulario
