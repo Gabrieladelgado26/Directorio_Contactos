@@ -358,7 +358,7 @@
 
                                                                                 <div class="col-md-12">
                                                                                     <label for="nombres" class="form-label">Nombres</label>
-                                                                                    <input type="text" class="form-control" name="nombres" value="<%=contacto.getNombre()%>"  required>
+                                                                                    <input type="text" class="form-control" name="nombres" value="<%=contacto.getNombre()%>"  disabled="false">
                                                                                 </div>
                                                                                 <div class="col-md-12">
                                                                                     <label for="apellidos" class="form-label">Apellidos</label>
