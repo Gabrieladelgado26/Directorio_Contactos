@@ -1,8 +1,7 @@
 1,Adrian Camilo,Castillo Angulo,Pasto,33421423141,adrian@gmail.com
-2,Carlo,Quiñones,Bogota,3232386890,Carlos@gmail.com
+2,Carlo,Quiñones,Bogota,3232386890,ad@gmail.com
 3,Carme,Quiñones,Bogota,3232386890,adrianangulo1080@gmail.com
-8,Cirilo,Angulo,Cali,23432,ad@gmail.com
 4,Dahiam,Klinger,Cali,3241234,Dahiam@gmail.com
-5,Maikol,landazuri,Bogota,34324,maiko@gmail.com
+5,Maikol,Gonzales,Bogota,34324,maiko@gmail.com
 6,Maria,Castro,Cali,324234,maria@gmail.com
-7,Natalia,Quiñones,Barbacoas,342234,natalia@gmail.com
+7,Natali,Quiñones,Bogota,3232386890,ad@gmail.com

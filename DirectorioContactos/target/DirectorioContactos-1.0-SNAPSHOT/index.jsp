@@ -238,7 +238,10 @@
                                                             <!--------------------------------  Modal para agregar un contacto  ------------------------------------------------->
                                                             <%@include file= "templates/Modal_Agregar.jsp" %>
 
-                                                            <!--------------------------------  Modal para ver informacion de conctacto ------------------------------------------------->
+                                                            
+
+
+<!--------------------------------  Modal para ver informacion de conctacto ------------------------------------------------->
 
                                                             <div class="modal fade" id="exampleModalDetalles<%= contacto.getId()%>" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog modal-dialog-centered">
@@ -341,9 +344,6 @@
 
                                                             <!--------------------------------------------- fin de modal ------------------------------------------------------------->
 
-
-
-
                                                             <!------------- Modal para editar informacion del conctacto  ------------->
                                                             <div class="modal fade" id="editModalConfirm<%= contacto.getId()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                                 <div class="modal-dialog">
@@ -358,7 +358,7 @@
 
                                                                                 <div class="col-md-12">
                                                                                     <label for="nombres" class="form-label">Nombres</label>
-                                                                                    <input type="text" class="form-control" name="nombres" value="<%=contacto.getNombre()%>"  disabled="false">
+                                                                                    <input type="text" class="form-control" name="nombres" value="<%=contacto.getNombre()%>" readonly="readonly">
                                                                                 </div>
                                                                                 <div class="col-md-12">
                                                                                     <label for="apellidos" class="form-label">Apellidos</label>
